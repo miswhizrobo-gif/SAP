@@ -1,0 +1,373 @@
+# WhizSAP Project – Complete AI Development Context
+
+## 1. Project Overview
+
+WhizSAP is a full-stack Employee Task Tracking System that allows admins to assign and manage tasks while employees can view and update their assigned work.
+
+The system supports:
+
+* Task creation and assignment
+* Role-based dashboards (Admin & Employee)
+* Task status tracking
+* File uploads (attachments)
+* Email notifications
+* Authentication using JWT
+
+---
+
+## 2. Tech Stack
+
+### Backend:
+
+* Node.js
+* Express.js
+* MongoDB (Mongoose)
+* JWT Authentication
+* Multer (file uploads)
+* Nodemailer (email service)
+
+### Frontend:
+
+* React.js
+* Context API (Auth management)
+* Axios (API calls)
+* CSS for styling
+
+---
+
+## 3. Folder Structure
+
+```
+WhizSAP/
+│
+├── backend/
+├── frontend/
+├── README.md
+├── setup.sh / setup.bat
+└── context.txt
+```
+
+---
+
+## 4. Backend Architecture
+
+### 4.1 Entry Point
+
+**server.js**
+
+* Initializes Express app
+* Connects to MongoDB
+* Loads middleware
+* Registers routes
+* Starts server
+
+---
+
+### 4.2 Config Layer
+
+#### database.js
+
+* Connects to MongoDB using Mongoose
+
+#### email.js
+
+* Configures Nodemailer for sending emails
+
+---
+
+### 4.3 Models (MongoDB Schemas)
+
+#### User.js
+
+Fields:
+
+* name
+* email
+* password (hashed)
+* role (admin / employee)
+
+#### Task.js
+
+Fields:
+
+* title
+* description
+* assignedTo (User reference)
+* status (To-do / In-progress / Done)
+* priority
+* deadline
+* attachments
+* timestamps
+
+---
+
+### 4.4 Controllers
+
+#### authController.js
+
+Handles:
+
+* User registration
+* Login
+* JWT token generation
+
+#### taskController.js
+
+Handles:
+
+* Create task
+* Assign task
+* Get tasks (admin / employee)
+* Update task status
+* Delete task
+
+---
+
+### 4.5 Middleware
+
+#### auth.js
+
+* Verifies JWT token
+* Protects routes
+* Extracts user info
+
+---
+
+### 4.6 Routes
+
+#### authRoutes.js
+
+* POST /register
+* POST /login
+
+#### taskRoutes.js
+
+* POST /tasks (Admin)
+* GET /tasks
+* PUT /tasks/:id
+* DELETE /tasks/:id
+
+---
+
+### 4.7 File Uploads
+
+* Stored in `/uploads`
+* Managed via Multer
+
+---
+
+## 5. Frontend Architecture
+
+### 5.1 Entry
+
+#### index.js
+
+* Renders React app
+
+#### App.js
+
+* Handles routing
+* Wraps app with AuthContext
+
+---
+
+### 5.2 Pages
+
+#### Login.js
+
+* User authentication
+
+#### Register.js
+
+* New user creation
+
+#### EmployeeDashboard.js
+
+* View assigned tasks
+* Update task status
+* Filter tasks
+
+#### AdminDashboard.js
+
+* Create tasks
+* Assign tasks
+* View all employees’ tasks
+* Delete tasks
+
+---
+
+### 5.3 Components
+
+Reusable UI elements (forms, task cards, etc.)
+
+---
+
+### 5.4 Context API
+
+#### AuthContext.js
+
+* Stores user state
+* Stores JWT token
+* Provides login/logout functionality
+
+---
+
+### 5.5 API Layer
+
+#### api.js
+
+* Axios instance
+* Base URL config
+* Attaches JWT token in headers
+
+---
+
+### 5.6 Styling
+
+* CSS files per page/module
+
+---
+
+## 6. Authentication Flow
+
+1. User logs in
+2. Backend validates credentials
+3. JWT token is generated
+4. Token stored in frontend (localStorage/context)
+5. Token sent in headers for protected routes
+
+---
+
+## 7. Role-Based Access
+
+### Admin:
+
+* Create tasks
+* Assign tasks
+* Delete tasks
+* View all data
+
+### Employee:
+
+* View assigned tasks
+* Update status only
+
+---
+
+## 8. API Flow
+
+Frontend → Axios → Backend Routes → Controllers → Models → Database
+
+Response returns back to frontend and updates UI.
+
+---
+
+## 9. Environment Variables
+
+Backend `.env`:
+
+```
+PORT=5000
+MONGODB_URI=
+JWT_SECRET=
+EMAIL_USER=
+EMAIL_PASS=
+```
+
+---
+
+## 10. Setup Instructions
+
+### Backend:
+
+```
+cd backend
+npm install
+npm start
+```
+
+### Frontend:
+
+```
+cd frontend
+npm install
+npm start
+```
+
+---
+
+## 11. Key Features Already Implemented
+
+* JWT Authentication
+* Role-based dashboards
+* Task lifecycle management
+* File upload support
+* Email notifications
+
+---
+
+## 12. Suggested Improvements (For AI Tools)
+
+You can ask AI to:
+
+### Feature Additions:
+
+* Notifications (real-time using Socket.io)
+* Comments on tasks
+* Task history tracking
+* Dashboard analytics (charts)
+* Role hierarchy (manager, team lead)
+* Pagination & search
+
+### Performance:
+
+* Add caching (Redis)
+* Optimize DB queries
+
+### UI/UX:
+
+* Convert to Material UI / Tailwind
+* Add dark mode
+
+### Security:
+
+* Rate limiting
+* Input validation (Joi/Zod)
+* Refresh tokens
+
+---
+
+## 13. Known Gaps / Opportunities
+
+* No real-time updates
+* Basic UI
+* No unit tests
+* No logging system
+* Limited error handling
+
+---
+
+## 14. How to Use This Context in AI Tools
+
+Paste this entire document and then prompt like:
+
+* “Add task comments feature”
+* “Convert backend to TypeScript”
+* “Optimize MongoDB queries”
+* “Add role-based permissions”
+* “Create REST API documentation”
+
+---
+
+## 15. Summary
+
+This is a MERN-based employee task tracking system with:
+
+* Clean separation of concerns
+* Scalable backend structure
+* Modular frontend
+* Ready for enhancements
+
+---
+
+END OF CONTEXT
